@@ -3,50 +3,102 @@
 Présentation des apis à mettre en place par le back end
 
          I.            Les apis concernant la gestion des utilisateurs
- Utilisateurs/new
- Utilisateurs/update/{id}
- Utilisateurs/delete/{id}
- Utilisateurs/all
- Utilisateurs/getUserById/{id}
- 
- Security/login/{username}/{password}
- Security/logout
- 
- 
-       II.            Les apis concernant les publications
- Publications/new 
- Publications/update/{id}
- Publications/deleteManuel/{id}
- Publications/deleteAuto/{id}
- Publications/getAllByUser/{id}
- Publications/getTopTen
- Publications/getPublicationById/{id}
- Publications/like/new
- Publications/like/getAll
- Publications/like/delete/{id}
- Publications/commentaire/new
- Publications/commentaire/getAll
- Publications/commentaire/delete/{id}
+Utilisateurs/new
+Utilisateurs/update/{id}
+Utilisateurs/delete/{id}
+Utilisateurs/all
+Utilisateurs/getUserById/{id}
 
-[
+Security/login/{username}/{password}
+Security/logout
+
+
+       II.            Les apis concernant les publications
+Publications/new
+Publications/update/{id}
+Publications/deleteManuel/{id}
+Publications/deleteAuto/{id}
+Publications/getAllByUser/{id}
+Publications/getTopTen
+Publications/getPublicationById/{id}
+Publications/like/new
+Publications/like/getAll
+Publications/like/delete/{id}
+Publications/commentaire/new
+Publications/commentaire/getAll
+Publications/commentaire/delete/{id}
+
+## Context
+
+L'url de base de l'api ci-dessous:
+
+```
+context = http://184.72.152.79:8080
+```
+
+Chaque appel de service de l' api se fait avec
+
+```
+context + url
+```
+
+## Inscription
+```javascript
 {
-"url": "/api/v1/publications/delete/{id}",
-"method": "DELETE",
-"headers": [],
-"params": [
-{
-"key": "id",
-"value": "0"
+  "url": "/api/v1/utilisateurs/new",
+  "method": "POST",
+  "headers": [],
+  "params": [],
+  "bodyJson": {
+    "user": {
+      "id": null, 
+      "nom": "",
+      "prenom": "",
+      "profil": "",
+      "email": "",
+      "username": "", 
+      "password": ""
+    }
+  },
+  " protocol": "http"
 }
-],
-"bodyJson": "",
-"description": "PublicationController#deletePublication",
-"moduleName": "instasnap",
-"framework": "Spring MVC",
-"protocol": "http",
-"id": "",
-"ts": 1653996757514
-},
+```
+
+## Login
+
+```json
+{
+  "url": "/api/v1/security/login",
+  "method": "POST",
+  "headers": [],
+  "params": [],
+  "bodyJson": {
+    "username": "",
+    "password": ""
+  },
+  "protocol": "http"
+}
+```
+
+# Suppression d'utilisateur
+
+```json
+{
+  "url": "/api/v1/publications/delete/{id}",
+  "method": "DELETE",
+  "headers": [],
+  "params": [
+    {
+      "key": "id",
+      "value": "0"
+    }
+  ],
+  "bodyJson": "",
+  "protocol": "http"
+}
+```
+
+
 {
 "url": "/api/v1/commentaires/getCommentaireById/{id}",
 "method": "GET",
@@ -415,19 +467,7 @@ Présentation des apis à mettre en place par le back end
 "id": "",
 "ts": 1653996757767
 },
-{
-"url": "/api/v1/security/login",
-"method": "POST",
-"headers": [],
-"params": [],
-"bodyJson": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}",
-"description": "SecurityControlller#login",
-"moduleName": "instasnap",
-"framework": "Spring MVC",
-"protocol": "http",
-"id": "",
-"ts": 1653996757768
-}
-]
+
+
  
 
