@@ -33,19 +33,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .anyRequest().permitAll()
+                .anyRequest()
+                .permitAll()
 //                antMatchers("/**/login", "/api/vi/utilisateurs/new",
 //                        "/api/vi/utilisateurs/all",
 //                        "/api/vi/utilisateurs/{page}/{pageSize}",
 //                        "/api/vi/utilisateurs/update/{id}",
 //                        "/api/vi/utilisateurs/delete/{id}",
-//                        "/api/vi/security/login",
-//                        "/api/vi/utilisateurs/new",
-//                        "/api/vi/utilisateurs/new")
 //                .permitAll()
 //                .anyRequest().authenticated()
                 .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().logout().logoutUrl("/api/v1/security/logout")
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .logoutSuccessUrl("/api/v1/security/login");
 
         httpSecurity.addFilterBefore(applicationRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }

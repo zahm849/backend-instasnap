@@ -33,6 +33,11 @@ public class CommentaireService implements CommentaireServiceInterface {
     }
 
     @Override
+    public List<Commentaire> getCommentairesByUser() {
+        return commentaireRepository.getCommentairesByUser();
+    }
+
+    @Override
     public Commentaire getById(Long id) {
         return commentaireRepository.getById(id);
     }

@@ -1,9 +1,6 @@
 package tg.backend.instasnap.controller.api.v1;
 
-import com.google.common.reflect.TypeToken;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,12 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tg.backend.instasnap.dto.UserDto;
 import tg.backend.instasnap.dto.auth.AuthenticationResponse;
 import tg.backend.instasnap.dto.auth.AuthenticatonRequest;
-import tg.backend.instasnap.dto.request.UserSaveDto;
 import tg.backend.instasnap.models.User;
-import tg.backend.instasnap.service.UserServiceInterface;
 import tg.backend.instasnap.service.auth.ApplicationUserDetailsService;
 import tg.backend.instasnap.service.auth.JwtUtil;
 
@@ -30,12 +24,6 @@ public class SecurityControlller {
 
     @Autowired
     private ApplicationUserDetailsService applicationUserDetailsService;
-
-    @Autowired
-    private ModelMapper modelMapper;
-
-    @Autowired
-    private UserServiceInterface userServiceInterface;
 
     @Autowired
     private JwtUtil jwtUtil;

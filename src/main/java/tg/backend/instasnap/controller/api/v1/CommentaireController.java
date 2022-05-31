@@ -50,7 +50,7 @@ public class CommentaireController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping(value = "")
+    @PostMapping(value = "/new")
     public ResponseEntity<CommentaireSaveDto> CreateCommentaire(
             @RequestBody CommentaireSaveDto commentaireSaveDto) {
 
@@ -59,13 +59,11 @@ public class CommentaireController {
         TypeToken<CommentaireDto> typeToken = new
                 TypeToken<CommentaireDto>(CommentaireDto.class) {
                 };
-
         CommentaireDto response = modelMapper.map(type, typeToken.getType());
-
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/getCommentaireById/{id}")
     @ResponseBody
     public ResponseEntity<CommentaireDto> getCommentaireById(@PathVariable("id") Long id) {
         TypeToken<CommentaireDto> typeToken = new
@@ -77,7 +75,19 @@ public class CommentaireController {
 
     }
 
-    @PutMapping("/{id}")
+    @GetMapping(value = "/getCommentaireByUser/{id}")
+    @ResponseBody
+    public ResponseEntity<CommentaireDto> getCommentaireByUser(@PathVariable("user") Long id) {
+        TypeToken<CommentaireDto> typeToken = new
+                TypeToken<CommentaireDto>(CommentaireDto.class) {
+                };
+        List<Commentaire> data = commentaireServiceInterface.getCommentairesByUser();
+        CommentaireDto response = modelMapper.map(data, typeToken.getType());
+        return new ResponseEntity(response, HttpStatus.OK);
+
+    }
+
+    @PutMapping("/update/{id}")
     public ResponseEntity<CommentaireSaveDto> updateCommentaire(
             @PathVariable(value = "id") Long id,
             @RequestBody CommentaireSaveDto commentaireSaveDto) {
@@ -97,7 +107,7 @@ public class CommentaireController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteCommentaire(@PathVariable Long id) {
         commentaireServiceInterface.delete(id);
         System.out.println("Le commentaire " + id + " a été supprimé avec succès");

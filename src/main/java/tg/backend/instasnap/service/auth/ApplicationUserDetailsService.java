@@ -10,7 +10,6 @@ import tg.backend.instasnap.repository.UserRepository;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
-import java.util.Optional;
 
 @Service
 public class ApplicationUserDetailsService implements UserDetailsService {
@@ -35,4 +34,5 @@ public class ApplicationUserDetailsService implements UserDetailsService {
 
         return user;
     }
+
 }

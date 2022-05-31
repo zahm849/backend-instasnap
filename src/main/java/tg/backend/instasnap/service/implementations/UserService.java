@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import tg.backend.instasnap.dto.request.UserSaveDto;
+import tg.backend.instasnap.models.Commentaire;
 import tg.backend.instasnap.models.User;
 import tg.backend.instasnap.repository.UserRepository;
 import tg.backend.instasnap.service.UserServiceInterface;
@@ -32,6 +33,11 @@ public class UserService implements UserServiceInterface {
     public Page<User> getAllUsers(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page,pageSize, Sort.by(Sort.Direction.ASC,"nom"));
         return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Commentaire> getCommentairesByUser(Long id) {
+        return null;
     }
 
     @Override

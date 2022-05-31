@@ -36,10 +36,10 @@ public class Publication extends CommunClass{
     @JoinColumn(nullable = false, name = "user")
     private User user;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
+/*    @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Liker> listLikes = new HashSet<>();
 
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Commentaire> listCommentaires = new HashSet<>();
+    private Set<Commentaire> listCommentaires = new HashSet<>();*/
 
 }
