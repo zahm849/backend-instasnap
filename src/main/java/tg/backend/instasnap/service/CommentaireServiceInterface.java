@@ -6,5 +6,5 @@ import tg.backend.instasnap.models.Commentaire;
 import java.util.List;
 
 public interface CommentaireServiceInterface extends EntityServiceInterface<Commentaire, Long, CommentaireSaveDto>{
-    List<Commentaire> getCommentairesByUser();
+    public List<Commentaire> getAllByUser(Long id);
 }

@@ -61,6 +61,8 @@ public class LikerService implements LikerServiceInterface {
                 e.printStackTrace();
             }
         }
+        int nbreLikeUpdate = publicationContainer.get().getNombreVue() +1;
+        publicationContainer.get().setNombreVue(nbreLikeUpdate);
         liker.setPublication(publicationContainer.get());
 
         return likerRepository.save(liker);

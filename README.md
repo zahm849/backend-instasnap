@@ -3,37 +3,39 @@
 Présentation des apis à mettre en place par le back end
 
          I.            Les apis concernant la gestion des utilisateurs
-Utilisateurs/new
-Utilisateurs/update/{id}
-Utilisateurs/delete/{id}
-Utilisateurs/all
-Utilisateurs/getUserById/{id}
+'''
+utilisateurs/new
+utilisateurs/update/{id}
+utilisateurs/delete/{id}
+utilisateurs/all
+utilisateurs/getUserById/{id}
 
-Security/login/{username}/{password}
-Security/logout
-
+security/login/{username}/{password}
+security/logout
+'''
 
        II.            Les apis concernant les publications
-Publications/new
-Publications/update/{id}
-Publications/deleteManuel/{id}
-Publications/deleteAuto/{id}
-Publications/getAllByUser/{id}
-Publications/getTopTen
-Publications/getPublicationById/{id}
-Publications/like/new
-Publications/like/getAll
-Publications/like/delete/{id}
-Publications/commentaire/new
-Publications/commentaire/getAll
-Publications/commentaire/delete/{id}
-
+'''
+publications/new
+publications/update/{id}
+publications/deleteManuel/{id}
+publications/deleteAuto/{id}
+publications/getAllByUser/{id}
+publications/getTopTen
+publications/getPublicationById/{id}
+publications/like/new
+publications/like/getAll
+publications/like/delete/{id}
+publications/commentaire/new
+publications/commentaire/getAll
+publications/commentaire/delete/{id}
+'''
 ## Context
 
 L'url de base de l'api ci-dessous:
 
 ```
-context = http://184.72.152.79:8080
+context = http://184.72.152.79:8080/api/v1
 ```
 
 Chaque appel de service de l' api se fait avec

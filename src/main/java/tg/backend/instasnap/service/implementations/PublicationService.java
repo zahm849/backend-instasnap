@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Service
 public class PublicationService implements PublicationServiceInterface {
-
     @Autowired
     private PublicationRepository publicationRepository;
 
@@ -33,15 +32,15 @@ public class PublicationService implements PublicationServiceInterface {
     }
 
     @Override
+    @Transactional
     public Publication create(PublicationSaveDto publicationSaveDto) {
         Publication publication = new Publication();
-
         publication.setId(publicationSaveDto.getPublication().getId());
         publication.setLibelle(publicationSaveDto.getPublication().getLibelle());
         publication.setEtat(publicationSaveDto.getPublication().isEtat());
-        publication.setLast_seen(publicationSaveDto.getPublication().getLast_seen());
+        publication.setLastSeen(publicationSaveDto.getPublication().getLastSeen());
         publication.setUrl(publicationSaveDto.getPublication().getUrl());
-        publication.setNombre_vue(publicationSaveDto.getPublication().getNombre_vue());
+        publication.setNombreVue(publicationSaveDto.getPublication().getNombreVue());
 
         Optional<User> userContainer = userRepository.findById(publicationSaveDto.getUser());
         if (userContainer.isPresent() == false) {
@@ -58,7 +57,12 @@ public class PublicationService implements PublicationServiceInterface {
 
     @Override
     public void delete(Long id) {
-        publicationRepository.deleteById(id);
+        Optional<Publication> publicationContainer = publicationRepository.findById(id);
+        if (publicationContainer.isPresent()){
+            Publication existingPublication = publicationContainer.get();
+            existingPublication.setEtat(false);
+        }
+        //publicationRepository.deleteById(id);
     }
 
     @Override
@@ -68,14 +72,11 @@ public class PublicationService implements PublicationServiceInterface {
         if (publicationContainer.isPresent()){
             Publication existingPublication = publicationContainer.get();
 
-            existingPublication.setId(publicationSaveDto.getPublication().getId());
-
-            existingPublication.setId(publicationSaveDto.getPublication().getId());
             existingPublication.setLibelle(publicationSaveDto.getPublication().getLibelle());
             existingPublication.setEtat(publicationSaveDto.getPublication().isEtat());
-            existingPublication.setLast_seen(publicationSaveDto.getPublication().getLast_seen());
+            existingPublication.setLastSeen(publicationSaveDto.getPublication().getLastSeen());
             existingPublication.setUrl(publicationSaveDto.getPublication().getUrl());
-            existingPublication.setNombre_vue(publicationSaveDto.getPublication().getNombre_vue());
+            existingPublication.setNombreVue(publicationSaveDto.getPublication().getNombreVue());
 
             Optional<User> userContainer = userRepository.findById(publicationSaveDto.getUser());
             if (userContainer.isPresent() == false) {
@@ -86,12 +87,23 @@ public class PublicationService implements PublicationServiceInterface {
                 }
             }
             existingPublication.setUser(userContainer.get());
-
-
-
             return existingPublication;
         }else{
             return null;
         }
     }
+
+    @Override
+    public List<Publication> getAllByUser(Long id) {
+        Optional<User> userContainer = userRepository.findById(id);
+        if (userContainer.isPresent() == false) {
+            try {
+                throw new Exception("L'utilisateur n'existe pas");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return publicationRepository.getByUser(userContainer.get());
+    }
+
 }

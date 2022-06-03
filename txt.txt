@@ -1,0 +1,10 @@
+/*public List<Publication> getTopTen();*/
+
+
+
+/*    @Override
+    public List<Publication> getTopTen() {
+        return publicationRepository.getTopByNombreVueIsGreaterThanAndCreatedAt();
+    }*/
+
+    List<Publication> getTopByNombreVueIsGreaterThanAndCreatedAt();

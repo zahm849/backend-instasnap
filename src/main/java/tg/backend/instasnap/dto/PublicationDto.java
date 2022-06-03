@@ -15,8 +15,8 @@ public class PublicationDto {
     private Long id;
     private String url;
     private String libelle;
-    private Integer nombre_vue;
-    private Date last_seen;
+    private Integer nombreVue;
+    private Date lastSeen;
     private boolean etat;
 
 }

@@ -70,7 +70,6 @@ public class UserService implements UserServiceInterface {
 
         if (userContainer.isPresent()){
             User existingUser = userContainer.get();
-//            existingUser.setId(userSaveDto.getUser().getId());
             existingUser.setNom(userSaveDto.getUser().getNom());
             existingUser.setPrenom(userSaveDto.getUser().getPrenom());
             existingUser.setEmail(userSaveDto.getUser().getEmail());

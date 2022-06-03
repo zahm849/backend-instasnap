@@ -33,8 +33,16 @@ public class CommentaireService implements CommentaireServiceInterface {
     }
 
     @Override
-    public List<Commentaire> getCommentairesByUser() {
-        return commentaireRepository.getCommentairesByUser();
+    public List<Commentaire> getAllByUser(Long id) {
+        Optional<User> userContainer = userRepository.findById(id);
+        if (userContainer.isPresent() == false) {
+            try {
+                throw new Exception("L'utilisateur n'existe pas");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return commentaireRepository.getAllByUser(userContainer.get());
     }
 
     @Override

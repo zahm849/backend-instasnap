@@ -28,9 +28,9 @@ public class Publication extends CommunClass{
 
     private Boolean etat;
     @NotBlank
-    private Integer nombre_vue;
+    private Integer nombreVue;
     @NotBlank
-    private Date last_seen;
+    private Date lastSeen;
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "user")

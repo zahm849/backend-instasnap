@@ -50,6 +50,22 @@ public class CommentaireController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/getAllByUser/{id}")
+    public ResponseEntity<CommentaireDto> getAllByUser(@PathVariable("id") Long id) {
+        TypeToken<CommentaireDto> typeToken = new
+                TypeToken<CommentaireDto>(CommentaireDto.class) {
+                };
+        List<Commentaire> data = commentaireServiceInterface.getAllByUser(id);
+        List<CommentaireDto> responseData = new ArrayList<>();
+        data.forEach((c) -> {
+            CommentaireDto dto = modelMapper.map(c, typeToken.getType());
+            responseData.add(dto);
+        });
+        CommentaireGetAllResponseDto response = new CommentaireGetAllResponseDto(responseData);
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/new")
     public ResponseEntity<CommentaireSaveDto> CreateCommentaire(
             @RequestBody CommentaireSaveDto commentaireSaveDto) {
@@ -63,7 +79,7 @@ public class CommentaireController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getCommentaireById/{id}")
+    @GetMapping(value = "/getById/{id}")
     @ResponseBody
     public ResponseEntity<CommentaireDto> getCommentaireById(@PathVariable("id") Long id) {
         TypeToken<CommentaireDto> typeToken = new
@@ -71,18 +87,6 @@ public class CommentaireController {
                 };
         Commentaire commentaire = commentaireServiceInterface.getById(id);
         CommentaireDto response = modelMapper.map(commentaire, typeToken.getType());
-        return new ResponseEntity(response, HttpStatus.OK);
-
-    }
-
-    @GetMapping(value = "/getCommentaireByUser/{id}")
-    @ResponseBody
-    public ResponseEntity<CommentaireDto> getCommentaireByUser(@PathVariable("user") Long id) {
-        TypeToken<CommentaireDto> typeToken = new
-                TypeToken<CommentaireDto>(CommentaireDto.class) {
-                };
-        List<Commentaire> data = commentaireServiceInterface.getCommentairesByUser();
-        CommentaireDto response = modelMapper.map(data, typeToken.getType());
         return new ResponseEntity(response, HttpStatus.OK);
 
     }
