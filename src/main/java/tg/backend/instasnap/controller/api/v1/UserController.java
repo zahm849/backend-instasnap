@@ -38,8 +38,6 @@ public class UserController {
                 TypeToken<UserDto>(UserDto.class) {
                 };
         List<User> data = userServiceInterface.getAll();
-
-
         List<UserDto> responseData = new ArrayList<>();
         data.forEach((c) -> {
             UserDto dto = modelMapper.map(c, typeToken.getType());
@@ -63,7 +61,6 @@ public class UserController {
     @PostMapping(value = "/new")
     public ResponseEntity<UserSaveDto> CreateUser(
             @RequestBody UserSaveDto userSaveDto) {
-
         User type = this.userServiceInterface.create(userSaveDto);
 
         TypeToken<UserDto> typeToken = new
@@ -71,6 +68,8 @@ public class UserController {
                 };
 
         UserDto response = modelMapper.map(type, typeToken.getType());
+
+
         return new ResponseEntity(response, HttpStatus.OK);
     }
 

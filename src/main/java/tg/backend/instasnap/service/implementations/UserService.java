@@ -24,6 +24,7 @@ public class UserService implements UserServiceInterface {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
     @Override
     public List<User> getAll() {
         return userRepository.findAll();
