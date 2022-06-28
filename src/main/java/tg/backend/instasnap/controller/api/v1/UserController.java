@@ -4,6 +4,9 @@ package tg.backend.instasnap.controller.api.v1;
 import com.google.common.reflect.TypeToken;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import tg.backend.instasnap.dto.UserDto;
 import tg.backend.instasnap.dto.request.UserSaveDto;
 import tg.backend.instasnap.dto.response.UserGetAllResponseDto;
@@ -15,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tg.backend.instasnap.service.auth.ApplicationUserDetailsService;
+import tg.backend.instasnap.service.auth.JwtUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +36,14 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private ApplicationUserDetailsService applicationUserDetailsService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
 
     @GetMapping(value = "/all")
     public ResponseEntity<UserGetAllResponseDto> listUsers() {
@@ -53,6 +66,7 @@ public class UserController {
         return new ResponseEntity<>(userServiceInterface.getAllUsers(page,pageSize) , HttpStatus.OK);
     }
 
+
     /**
      * Cet api permet d'enregistrer un utilisateur
      * @param userSaveDto
@@ -66,11 +80,29 @@ public class UserController {
         TypeToken<UserDto> typeToken = new
                 TypeToken<UserDto>(UserDto.class) {
                 };
-
         UserDto response = modelMapper.map(type, typeToken.getType());
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        response.getUsername(),
+                        response.getPassword()
+                )
+        );
+        final UserDetails userDetails = applicationUserDetailsService
+                .loadUserByUsername(type.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails);
 
-
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new
+                ResponseEntity(
+                        UserDto.builder()
+                                .nom(response.getNom())
+                                .prenom(response.getPrenom())
+                                .id(response.getId())
+                                .username(response.getUsername())
+                                .profil(response.getProfil())
+                                .email(response.getEmail())
+                                .password(response.getPassword())
+                                .accessToken(jwt).build(),
+                HttpStatus.OK);
     }
 
     @GetMapping(value = "/getUserById/{id}")

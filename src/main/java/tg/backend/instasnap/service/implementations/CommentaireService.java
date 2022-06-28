@@ -35,7 +35,7 @@ public class CommentaireService implements CommentaireServiceInterface {
     @Override
     public List<Commentaire> getAllByUser(Long id) {
         Optional<User> userContainer = userRepository.findById(id);
-        if (userContainer.isPresent() == false) {
+        if (!userContainer.isPresent()) {
             try {
                 throw new Exception("L'utilisateur n'existe pas");
             } catch (Exception e) {
@@ -91,10 +91,8 @@ public class CommentaireService implements CommentaireServiceInterface {
         Optional<Commentaire> commentaireContainer = commentaireRepository.findById(id);
         if (commentaireContainer.isPresent()){
             Commentaire existingCommentaire = commentaireContainer.get();
-
             existingCommentaire.setId(commentaireSaveDto.getCommentaire().getId());
             existingCommentaire.setContenu(commentaireSaveDto.getCommentaire().getContenu());
-
             Optional<User> userContainer = userRepository.findById(commentaireSaveDto.getUser());
             if (userContainer.isPresent() == false) {
                 try {

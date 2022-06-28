@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class AuthenticationResponse {
     private  String accessToken;
-
+    private  Long id;
     private  String nom;
     private  String prenom;
 
